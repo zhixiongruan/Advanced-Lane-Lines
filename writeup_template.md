@@ -77,6 +77,7 @@ src = np.float32(
      [1140., 680.],
      [ 140., 680.]])
 offset = 100. # offset for dst points
+
 dst = np.float32(
     [[offset, 0],
      [img_size[0]-offset, 0],
