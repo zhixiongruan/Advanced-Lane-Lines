@@ -71,18 +71,17 @@ I used a combination of color and gradient thresholds to generate a binary image
 The code for my perspective transform includes a function called `warper()`, which appears in the 17th code cell of the IPython notebook `project_video.ipynb`.  The `warper()` function takes as inputs an image (`img`).  I chose the hardcode the source and destination points in the following manner:
 
 ```python
-src = np.float32(
-    [[ 560., 460.],
-     [ 720., 460.],
-     [1140., 680.],
-     [ 140., 680.]])
-offset = 100. # offset for dst points
-
-dst = np.float32(
-    [[offset, 0],
-     [img_size[0]-offset, 0],
-     [img_size[0]-offset, img_size[1]],
-     [offset, img_size[1]]])
+    src = np.float32(
+        [[570, 468], 
+         [270, 670], 
+         [1010, 670], 
+         [710, 468]])
+    
+    dst = np.float32(
+        [[280, 0], 
+         [280, 720], 
+         [1000, 720], 
+         [1000, 0]])
 ```
 
 I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
@@ -91,7 +90,7 @@ I verified that my perspective transform was working as expected by drawing the 
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
-Then I did some other stuff in the 19th and 28th code cell of the IPython notebook `project_video.ipynb`.I draw the lane onto the warped blank image
+Then I did some other stuff in the 19th and 21th code cell of the IPython notebook `project_video.ipynb`.I draw the lane onto the warped blank image
 
 ![alt text][image9]
 
@@ -99,11 +98,11 @@ Then I did some other stuff in the 19th and 28th code cell of the IPython notebo
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I did this in the 30th and 31th code cell of the IPython notebook `project_video.ipynb`.
+I did this in the 23th and 24th code cell of the IPython notebook `project_video.ipynb`.
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
-I implemented this step in the 35th code cell in my code in `project_video.ipynb` in the function `get_result()`.  Here is an example of my result on a test image:
+I implemented this step in the 25th code cell in my code in `project_video.ipynb` in the function `get_result()`.  Here is an example of my result on a test image:
 
 ![alt text][image11]
 
@@ -121,4 +120,8 @@ Here's a [link to my video result](./project_video_results.mp4)
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-The main challenge that I faced was trying to find color and gradient thresholds that work most of the time. In order to get the results I wanted, I tested it many times.
+我面临的主要挑战是试图找到大部分时间工作的颜色和渐变阈值。为了得到我想要的结果，我测试了很多次，我尝试了3种颜色通道，并一点点调整其阈值。我还花了大量时间去调整 `src` 和 `dst` ，以求获得较好的透视图，并让它能较好的应用到视频中。
+
+在对其它影响因素的处理中，我也尝试了不同的方法，例如，对树影的影响我用方法 `(R,G,B) = cv2.split(img)` 来进行处理。
+
+在视频的第 `22s` 前后和第 `40s` 前后处理的始终不太好，我还在学习，希望通过不停地学习能找到更好的处理方式。
